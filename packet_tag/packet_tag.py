@@ -143,14 +143,44 @@ def tag_query_interface():
         except Exception as e:
             st.error(f"Error: {e}")
 
+def display_sample_pcaps():
+    """
+    Display a section for downloading sample PCAP files.
+    """
+    st.subheader("Sample PCAP Files")
+    sample_files = {
+        "BGP Example": "pcap/bgp.pcap",
+        "Single Packet Example": "pcap/capture.pcap",
+        "DHCP Example": "pcap/dhcp.pcap",
+        "EIGRP Example": "pcap/eigrp.pcap",
+        "Slammer Worm Example": "pcap/slammer.pcap",
+        "Teardrop Attack Example": "pcap/teardrop.pcap",
+        "VXLAN Example": "pcap/vxlan.pcapng"
+    }
+
+    for name, path in sample_files.items():
+        try:
+            with open(path, "rb") as file:
+                st.download_button(
+                    label=f"Download {name}",
+                    data=file,
+                    file_name=os.path.basename(path),
+                    mime="application/vnd.tcpdump.pcap"
+                )
+        except FileNotFoundError:
+            st.error(f"Sample file '{name}' not found. Please check the file path.")
+
 # Main Application Logic
 def main():
     st.title("Packet TAG: Table-Augmented Generation for PCAP Analysis")
     st.markdown("---")
-    st.subheader("Step 1: Upload and Convert PCAP")
+    st.subheader("Step 1: Download Sample PCAP Files")
+    display_sample_pcaps()
+    st.markdown("---")
+    st.subheader("Step 2: Upload and Convert PCAP")
     upload_and_process_pcap()
     st.markdown("---")
-    st.subheader("Step 2: Query the Table with LLM Assistance")
+    st.subheader("Step 3: Query the Table with LLM Assistance")
     tag_query_interface()
 
 if __name__ == "__main__":
