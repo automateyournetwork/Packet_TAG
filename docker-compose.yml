@@ -1,0 +1,10 @@
+services:
+  packet_tag:
+    image: johncapobianco/packet_tag:packet_tag
+    container_name: packet_tag
+    restart: always
+    build: 
+      context: ./
+      dockerfile: ./docker/Dockerfile    
+    ports:
+      - "8501:8501"
