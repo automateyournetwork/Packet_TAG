@@ -22,7 +22,7 @@ OpenAI API Key: Obtain an API key from OpenAI.
 
 Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/automateyournetwork/Packet_TAG
 cd <repository-name>
 ```
 
